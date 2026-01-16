@@ -17,6 +17,65 @@ def remove_match_char(list1, list2):
     list3= list1+["*"]+list2
     return [list3, False]
 
+def tell_status():
+
+    #take player names from the entry box
+    p1= player1_field.get()
+    p1= p1.lower()
+    
+    #replace any space with empty string
+    p1= p1.replace(" ", "")
+    p1_list= list(p1)  #convert string to list
+
+    p2= player2_field.get()
+    p2= p2.lower()
+    p2= p2.replace(" ", "")
+    p2_list= list(p2)  #convert string to list
+
+    #taking a flag as True initially
+    proceed = True
+
+    #keep calling until common char found
+    while(proceed):
+
+        #call the function to remove common characters
+        ret_list= remove_match_char(p1_list, p2_list)
+
+        #take out concatenated list from return list
+        con_list= ret_list[0]
+
+        #take out flag value from return list
+        proceed= ret_list[1]
+
+        #find index of "*" / border mark
+        star_index= con_list.index("*")
+
+        #all characters before * stored in p1_list
+        p1_list= con_list[ : star_index]
+
+        #all characters after * stored in p2_list
+        p2_list= con_list[star_index + 1 : ]
+    
+    #count total remaining characters
+    count= len(p1_list) + len(p2_list)
+
+    #list of FLAMES acronyms
+    result= ["Friends", "Love", "Affection", "Marriage", "Enemies", "Siblings"]
+
+    #kepp looping till 1 item is left in the list
+    while len(result) > 1:
+        split_index= (count % len(result)) - 1
+        if split_index >= 0:
+            right= result[split_index + 1 : ]
+            left= result[ : split_index]
+            result= right + left
+        else:
+            result= result[ : len(result) - 1]
+    
+    #inserting the value in text entry box
+    status_field.insert(10, result[0])
+
+
 if __name__ == "__main__":
     root= Tk() #creating a GUI window
     root.configure(background= 'light green') #background color
