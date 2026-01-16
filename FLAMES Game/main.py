@@ -75,6 +75,13 @@ def tell_status():
     #inserting the value in text entry box
     status_field.insert(10, result[0])
 
+def clear_all():
+    player1_field.delete(0, END)
+    player2_field.delete(0, END)
+    status_field.delete(0, END)
+
+    #set focus on player1_field entry box
+    player1_field.focus_set()
 
 if __name__ == "__main__":
     root= Tk() #creating a GUI window
